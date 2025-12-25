@@ -8,6 +8,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                sh 'docker stop django-container'
+                sh 'docker rm django-container'
                 sh 'docker run -d --name django-container -p 9007:8000 my-django-app'
             }
         }

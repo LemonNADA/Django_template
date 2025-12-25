@@ -15,8 +15,8 @@ pipeline {
         }
         stage('Nginx') {
             steps {
-                sh 'ssh -o -i ${KEY_FILE} ${USERNAME}@${SERVER_ADDRESS} sudo certbot --nginx --non-interactive --agree-tos -m paramonov@informatics.ru -d ${DOMAIN_NAME}'
-                sh 'ssh -i ${KEY_FILE} ${USERNAME}@${SERVER_ADDRESS} sudo systemctl reload nginx'
+                sh 'scp -i ${KEY_FILE} paramonov.prod.mshp-devops.conf ${USERNAME}@${PROD_IP}:nginx'
+                sh 'ssh -i ${KEY_FILE} ${USERNAME}@${PROD_IP} sudo systemctl reload nginx'
             }
         }
     }
